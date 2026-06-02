@@ -1,0 +1,25 @@
+{
+  "name": "nh-catalog-flipbook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nationwide Haul digital catalog flipbook microsite",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "assets": "node scripts/build-assets.mjs"
+  },
+  "dependencies": {
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-pageflip": "2.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.7",
+    "@types/react": "19.0.7",
+    "@types/react-dom": "19.0.3",
+    "sharp": "0.33.5",
+    "typescript": "5.7.3"
+  }
+}

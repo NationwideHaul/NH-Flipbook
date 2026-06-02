@@ -1,0 +1,5 @@
+node_modules
+.next
+.git
+_render_tmp
+*.log
