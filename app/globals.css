@@ -40,6 +40,7 @@ button {
 .app {
   position: fixed;
   inset: 0;
+  height: 100dvh; /* track mobile browser chrome (address bar) */
   display: flex;
   flex-direction: column;
   background:
@@ -49,8 +50,8 @@ button {
 /* ---------- Floating brand ---------- */
 .logo {
   position: absolute;
-  top: 18px;
-  left: 22px;
+  top: calc(18px + env(safe-area-inset-top));
+  left: calc(22px + env(safe-area-inset-left));
   height: 34px;
   width: auto;
   z-index: 40;
@@ -60,8 +61,8 @@ button {
 
 .top-actions {
   position: absolute;
-  top: 16px;
-  right: 18px;
+  top: calc(14px + env(safe-area-inset-top));
+  right: calc(16px + env(safe-area-inset-right));
   z-index: 40;
   display: flex;
   gap: 8px;
@@ -199,7 +200,8 @@ button {
 /* ---------- Bottom control pill ---------- */
 .controls {
   flex: 0 0 auto;
-  margin: 0 auto 18px;
+  margin: 0 auto;
+  margin-bottom: calc(18px + env(safe-area-inset-bottom));
   display: flex;
   align-items: center;
   gap: 4px;
@@ -428,8 +430,8 @@ button {
 @media (max-width: 800px) {
   .logo {
     height: 28px;
-    top: 14px;
-    left: 16px;
+    top: calc(14px + env(safe-area-inset-top));
+    left: calc(16px + env(safe-area-inset-left));
   }
   .edge-arrow {
     width: 44px;
@@ -440,5 +442,50 @@ button {
   }
   .hint {
     font-size: 11px;
+    max-width: calc(100vw - 32px);
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+/* Phones: rely on swipe + bottom controls; hide overlapping edge chevrons */
+@media (max-width: 640px) {
+  .edge-arrow {
+    display: none;
+  }
+  .logo {
+    height: 26px;
+  }
+  .controls {
+    gap: 2px;
+    padding: 5px 6px;
+  }
+  .cbtn {
+    width: 44px;
+    height: 44px;
+  }
+  .counter {
+    min-width: 64px;
+    font-size: 12.5px;
+  }
+  .stage {
+    padding: 4px;
+  }
+}
+
+/* Avoid awkward two-page spreads on short landscape phones */
+@media (max-height: 480px) and (orientation: landscape) {
+  .logo {
+    height: 22px;
+  }
+  .controls {
+    margin-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (hover: none) {
+  /* touch devices: no hover lift on thumbnails, larger tap feedback */
+  .thumb:hover {
+    transform: none;
   }
 }

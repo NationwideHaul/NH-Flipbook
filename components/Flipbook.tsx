@@ -88,19 +88,21 @@ export default function Flipbook() {
     const compute = () => {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const reservedTop = 64;
-      const reservedBottom = 92;
-      const availH = vh - reservedTop - reservedBottom - 12;
-      const portrait = vw <= 800;
+      const small = vw <= 640;
+      const reservedTop = small ? 54 : 64;
+      const reservedBottom = small ? 78 : 92;
+      const availH = vh - reservedTop - reservedBottom - 10;
+      // Single page on phones and on short landscape screens.
+      const portrait = vw <= 800 || vh <= 480;
 
       let s: number;
       if (portrait) {
-        s = Math.min(availH, vw * 0.92, 760);
+        s = Math.min(availH, vw * (small ? 0.97 : 0.92), 760);
       } else {
         // two-page spread; leave room at the edges for the nav chevrons
         s = Math.min(availH, (vw - 150) / 2, 880);
       }
-      s = Math.max(260, Math.floor(s));
+      s = Math.max(220, Math.floor(s));
       setSize((prev) => {
         if (prev && prev.w === s && prev.portrait === portrait) return prev;
         return { w: s, h: s, portrait };
@@ -311,7 +313,7 @@ export default function Flipbook() {
             {showHint && ready && (
               <div className="hint">
                 {size.portrait
-                  ? "Swipe, scroll, or tap the arrows to turn pages"
+                  ? "Swipe or use the arrows below to turn pages"
                   : "Scroll, use ← → , or click the arrows to turn pages"}
               </div>
             )}
